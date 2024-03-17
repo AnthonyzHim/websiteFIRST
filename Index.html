@@ -3,12 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple HTML File</title>
+    <title>Guess the Number</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+    <h1>Guess the Number Game</h1>
+    <p>Guess a number between 1 and 100:</p>
+    <input type="text" id="guessInput">
+    <button onclick="checkGuess()">Submit Guess</button>
+    <p id="message"></p>
 
-    <h1>Hello, MEN!</h1>
-    <p>This is LIFE BEING ROBLOX.</p>
+    <script>
+        // Generate a random number between 1 and 100
+        const randomNumber = Math.floor(Math.random() * 100) + 1;
+        let guesses = 0;
 
+        function checkGuess() {
+            const guess = parseInt(document.getElementById('guessInput').value);
+            guesses++;
+
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                setMessage('Please enter a valid number between 1 and 100.');
+                return;
+            }
+
+            if (guess === randomNumber) {
+                setMessage(`Congratulations! You guessed the correct number ${randomNumber} in ${guesses} guesses!`);
+            } else {
+                const message = guess < randomNumber ? 'Too low! Try again.' : 'Too high! Try again.';
+                setMessage(message);
+            }
+        }
+
+        function setMessage(msg) {
+            document.getElementById('message').textContent = msg;
+        }
+    </script>
 </body>
 </html>
